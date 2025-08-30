@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多语言功能演示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo-section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌍 多语言功能使用指南</h1>
+    
+    <div class="demo-section">
+        <h2>📋 功能特点</h2>
+        <ul>
+            <li><strong>四种语言支持</strong>：中文、英文、西班牙文、法文</li>
+            <li><strong>实时切换</strong>：无需刷新页面即可切换语言</li>
+            <li><strong>本地存储</strong>：记住用户的语言偏好</li>
+            <li><strong>课件多语言</strong>：每个课件都支持多语言标题和描述</li>
+            <li><strong>完整界面翻译</strong>：导航、按钮、提示信息全部翻译</li>
+        </ul>
+    </div>
+    
+    <div class="demo-section">
+        <h2>🔧 API 使用方法</h2>
+        
+        <h3>1. 切换语言</h3>
+        <div class="code-block">
+// 切换到英文<br>
+CoursewareManager.setLanguage('en');<br><br>
+// 切换到西班牙文<br>
+CoursewareManager.setLanguage('es');<br><br>
+// 切换到法文<br>
+CoursewareManager.setLanguage('fr');<br><br>
+// 切换回中文<br>
+CoursewareManager.setLanguage('zh');
+        </div>
+        
+        <h3>2. 获取当前语言</h3>
+        <div class="code-block">
+const currentLang = CoursewareManager.getCurrentLanguage();<br>
+console.log('当前语言:', currentLang);
+        </div>
+        
+        <h3>3. 获取翻译文本</h3>
+        <div class="code-block">
+// 获取特定翻译<br>
+const siteTitle = CoursewareManager.getTranslation('site.title');<br>
+const navAll = CoursewareManager.getTranslation('nav.all');<br><br>
+// 或者使用简短方法<br>
+const loadingText = CoursewareManager.I18n.t('courseware.loading');
+        </div>
+        
+        <h3>4. 添加多语言课件</h3>
+        <div class="code-block">
+const newCourseware = {<br>
+&nbsp;&nbsp;title: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;zh: "新课件标题",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;en: "New Courseware Title",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;es: "Título del Nuevo Material",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fr: "Titre du Nouveau Support"<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;description: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;zh: "课件描述",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;en: "Courseware description",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;es: "Descripción del material",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fr: "Description du support"<br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;category: "science",<br>
+&nbsp;&nbsp;embedUrl: "https://example.com/embed",<br>
+&nbsp;&nbsp;icon: "🔬"<br>
+};<br><br>
+CoursewareManager.addCourseware(newCourseware);
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>🎯 使用建议</h2>
+        <ul>
+            <li><strong>语言切换器</strong>：位于页面右上角，用户可以随时切换语言</li>
+            <li><strong>自动保存</strong>：用户选择的语言会自动保存到本地存储</li>
+            <li><strong>回退机制</strong>：如果某个语言的翻译缺失，会自动回退到中文</li>
+            <li><strong>兼容性</strong>：支持旧格式的课件数据（纯字符串标题和描述）</li>
+        </ul>
+    </div>
+    
+    <div class="demo-section">
+        <h2>📝 添加新语言</h2>
+        <p>要添加新语言，需要在 <span class="highlight">script.js</span> 文件中的 <span class="highlight">translations</span> 对象中添加相应的翻译数据：</p>
+        <div class="code-block">
+const translations = {<br>
+&nbsp;&nbsp;// 现有语言...<br>
+&nbsp;&nbsp;de: { // 德语<br>
+&nbsp;&nbsp;&nbsp;&nbsp;site: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title: "Bildungsplattform für Kursmaterialien"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nav: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all: "Alle Kurse",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 其他翻译...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+};
+        </div>
+        <p>然后在HTML中的语言选择器中添加新选项：</p>
+        <div class="code-block">
+&lt;option value="de"&gt;Deutsch&lt;/option&gt;
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>🔗 返回主页</h2>
+        <p><a href="index.html" style="color: #3498db; text-decoration: none; font-weight: bold;">← 返回课件网站主页</a></p>
+    </div>
+</body>
+</html>

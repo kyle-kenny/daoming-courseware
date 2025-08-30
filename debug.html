@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .warning { background-color: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <h1>网站调试信息</h1>
+        <div id="status">正在检查...</div>
+        
+        <h3>文件加载状态：</h3>
+        <div id="file-status"></div>
+        
+        <h3>JavaScript执行状态：</h3>
+        <div id="js-status"></div>
+        
+        <h3>课件数据：</h3>
+        <div id="data-status"></div>
+        
+        <h3>DOM元素：</h3>
+        <div id="dom-status"></div>
+    </div>
+    
+    <div class="debug-info">
+        <h2>快速链接</h2>
+        <p><a href="index.html" target="_blank">打开主页</a></p>
+        <p><a href="language-demo.html" target="_blank">打开语言演示页</a></p>
+    </div>
+
+    <script>
+        function addStatus(containerId, message, type = 'success') {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            container.appendChild(div);
+        }
+        
+        // 检查文件是否存在
+        function checkFile(url, name, containerId) {
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        addStatus(containerId, `✓ ${name} 加载成功`, 'success');
+                    } else {
+                        addStatus(containerId, `✗ ${name} 加载失败 (${response.status})`, 'error');
+                    }
+                })
+                .catch(error => {
+                    addStatus(containerId, `✗ ${name} 加载错误: ${error.message}`, 'error');
+                });
+        }
+        
+        // 开始检查
+        document.addEventListener('DOMContentLoaded', function() {
+            addStatus('status', '开始检查网站状态...', 'warning');
+            
+            // 检查文件
+            checkFile('styles.css', 'CSS样式文件', 'file-status');
+            checkFile('script.js', 'JavaScript文件', 'file-status');
+            checkFile('index.html', '主页文件', 'file-status');
+            
+            // 检查JavaScript
+            try {
+                // 尝试加载script.js
+                const script = document.createElement('script');
+                script.src = 'script.js';
+                script.onload = function() {
+                    addStatus('js-status', '✓ script.js 加载成功', 'success');
+                    
+                    // 检查全局变量
+                    setTimeout(() => {
+                        if (typeof window.CoursewareManager !== 'undefined') {
+                            addStatus('js-status', '✓ CoursewareManager 对象存在', 'success');
+                            
+                            if (window.CoursewareManager.coursewareData) {
+                                const dataLength = window.CoursewareManager.coursewareData.length;
+                                addStatus('data-status', `✓ 课件数据加载成功，共 ${dataLength} 个课件`, 'success');
+                                
+                                // 显示课件列表
+                                window.CoursewareManager.coursewareData.forEach((item, index) => {
+                                    const title = item.title.zh || item.title;
+                                    addStatus('data-status', `${index + 1}. ${title} (${item.category})`, 'success');
+                                });
+                            } else {
+                                addStatus('data-status', '✗ 课件数据为空', 'error');
+                            }
+                        } else {
+                            addStatus('js-status', '✗ CoursewareManager 对象不存在', 'error');
+                        }
+                    }, 1000);
+                };
+                script.onerror = function() {
+                    addStatus('js-status', '✗ script.js 加载失败', 'error');
+                };
+                document.head.appendChild(script);
+            } catch (error) {
+                addStatus('js-status', `✗ JavaScript错误: ${error.message}`, 'error');
+            }
+            
+            // 检查DOM元素
+            setTimeout(() => {
+                const elements = [
+                    'courseware-grid',
+                    'language-select',
+                    'viewer-section'
+                ];
+                
+                elements.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        addStatus('dom-status', `✓ 元素 #${id} 存在`, 'success');
+                    } else {
+                        addStatus('dom-status', `✗ 元素 #${id} 不存在`, 'error');
+                    }
+                });
+                
+                addStatus('status', '检查完成！', 'success');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
