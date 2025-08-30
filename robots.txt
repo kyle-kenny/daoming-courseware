@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# 禁止访问敏感文件
+Disallow: /*.json$
+Disallow: /language-demo.html
+Disallow: /.git/
+
+# 指向站点地图
+Sitemap: https://daoming.cloud/sitemap.xml
+
+# 爬取延迟（可选）
+Crawl-delay: 1
+
+# 特定搜索引擎优化
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2

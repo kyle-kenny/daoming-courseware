@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+    <!-- 主页 -->
+    <url>
+        <loc>https://daoming.cloud/</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        
+        <!-- 多语言版本 -->
+        <xhtml:link rel="alternate" hreflang="zh-CN" href="https://daoming.cloud/?lang=zh" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://daoming.cloud/?lang=en" />
+        <xhtml:link rel="alternate" hreflang="es" href="https://daoming.cloud/?lang=es" />
+        <xhtml:link rel="alternate" hreflang="fr" href="https://daoming.cloud/?lang=fr" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://daoming.cloud/" />
+    </url>
+    
+    <!-- 课件页面 -->
+    <url>
+        <loc>https://daoming.cloud/courseware/geography-basics</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://daoming.cloud/courseware/electrical-systems</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 分类页面 -->
+    <url>
+        <loc>https://daoming.cloud/category/geography</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://daoming.cloud/category/science</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://daoming.cloud/category/history</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://daoming.cloud/category/math</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+</urlset>
